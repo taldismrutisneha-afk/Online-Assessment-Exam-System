@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Quiz & Exam System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <canvas id="bgCanvas"></canvas>
+
+<!-- 1. Welcome Landing Screen -->
+<div class="welcome-screen" id="welcomeScreen">
+    <h1>WELCOME TO INTERVIEW QUIZ</h1>
+    <p>Practice . Prepare . Perform</p>
+    
+    <div class="welcome-input-box">
+        <input type="text" id="welcomeName" placeholder="Enter Full Name" maxlength="30">
+        <button id="welcomeStartBtn" type="button">Start Quiz</button>
+    </div>
+</div>
+
+<!-- 2. Main Quiz Container -->
+<div class="container" id="mainContainer" style="display: none;">
+
+    <!-- 1. Start Screen -->
+    <div id="startScreen">
+        <h1>Online Quiz & Exam System</h1>
+        <p>Select a category to start your quiz.</p>
+
+        <div class="name-container">
+            <label for="participantName">Participant Name</label>
+            <input type="text" id="participantName" placeholder="Enter your name" maxlength="30">
+        </div>
+
+        <div class="category-container">
+            <button class="category-btn" data-category="HTML">HTML</button>
+            <button class="category-btn" data-category="CSS">CSS</button>
+            <button class="category-btn" data-category="JavaScript">JavaScript</button>
+            <button class="category-btn" data-category="Python">Python</button>
+            <button class="category-btn" data-category="OOPS">OOPS</button>
+        </div>
+
+        <div class="quiz-instructions">
+            <h3>📋 Quiz Instructions</h3>
+            <ul>
+    <li>Each quiz contains 20 questions.</li>
+    <li>You can skip a question and attempt a replacement question.</li>
+    <li>You can use Next, Previous, and Skip.</li>
+    <li>You can directly jump to any question.</li>
+    <li>Timer is 10 minutes.</li>
+    <li>Unanswered questions are counted separately.</li>
+    <li>At least 80% is required to pass the quiz.</li>
+    <li>100% score means all questions are answered correctly.</li>
+    <li>Your final score will be saved to the leaderboard.</li>
+</ul>
+        </div>
+
+        <button id="startBtn" disabled>Start Quiz</button>
+    </div>
+
+    <!-- 2. Quiz Screen -->
+    <div id="quizScreen" style="display: none;">
+        <div id="categoryTitle">HTML Quiz</div>
+
+        <div class="quiz-header">
+            <span id="questionNumber">Question 1 of 20</span>
+            <span id="timer">Time: 10:00</span>
+        </div>
+
+        <div class="progress-container">
+            <div id="progressBar"></div>
+        </div>
+
+        <div class="question-palette">
+            <p>Questions</p>
+            <div id="questionPalette"></div>
+        </div>
+
+        <h2 id="question">Question will appear here</h2>
+
+        <div id="options">
+            <button class="option">Option 1</button>
+            <button class="option">Option 2</button>
+            <button class="option">Option 3</button>
+            <button class="option">Option 4</button>
+        </div>
+
+        <div class="navigation-buttons">
+    <button id="prevBtn">Previous</button>
+    <button id="skipBtn">Skip</button>
+    <button id="nextBtn">Next</button>
+</div>
+
+        <p id="answerStatus"></p>
+    </div>
+
+    <!-- 3. Result Screen -->
+    <div id="resultScreen" style="display: none;">
+        <h1>🎉 Quiz Completed!</h1>
+        <h2>Your Result</h2>
+
+        <p id="resultCategory">Category: HTML</p>
+        <p id="performanceMessage"></p>
+
+        <div class="result-box">
+            <p><strong>Score:</strong> <span id="finalScore">0 / 5</span></p>
+            <p><strong>Correct Answers:</strong> <span id="correctAnswers">0</span></p>
+            <p><strong>Wrong Answers:</strong> <span id="wrongAnswers">0</span></p>
+            <p><strong>Unanswered:</strong> <span id="unansweredAnswers">0</span></p>
+            <p><strong>Percentage:</strong> <span id="percentage">0%</span></p>
+
+            <div class="attempt-summary">
+                <h3>📋 Attempt Summary</h3>
+                <p><strong>Total Questions:</strong> <span id="summaryTotal">0</span></p>
+                <p><strong>Attempted:</strong> <span id="summaryAttempted">0</span></p>
+                <p><strong>Correct:</strong> <span id="summaryCorrect">0</span></p>
+                <p><strong>Wrong:</strong> <span id="summaryWrong">0</span></p>
+                <p><strong>Unanswered:</strong> <span id="summaryUnanswered">0</span></p>
+            </div>
+        </div>
+
+        <button id="restartBtn">Restart Quiz</button>
+        <button id="leaderboardBtn">🏆 Leaderboard</button>
+    </div>
+
+    <!-- 4. Leaderboard Screen -->
+    <div id="leaderboardScreen" style="display: none;">
+        <h1>🏆 Leaderboard</h1>
+
+        <div id="leaderboardList"></div>
+
+        <button id="clearLeaderboardBtn">🗑️ Clear Leaderboard</button>
+        <button id="backToResultBtn">Back to Result</button>
+    </div>
+
+</div>
+
+    </div> <!-- End of container -->
+
+    <script src="script.js"></script>
+
+</body>
+</html>

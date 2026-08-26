@@ -1,0 +1,467 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 40px 0;
+    min-height: 100vh;
+    background: #0b0f19;
+    color: #e2e8f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    overflow-y: auto;
+    perspective: 1000px;
+}
+
+/* Background Canvas */
+#bgCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Base Glassmorphism 3D Main Box Container */
+.container {
+    width: 90%;
+    max-width: 650px;
+    margin: 40px auto;
+    text-align: center;
+    background: rgba(18, 24, 38, 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    padding: 35px 40px;
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 
+        0 30px 60px rgba(0, 0, 0, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        inset 0 -4px 0 rgba(0, 0, 0, 0.4);
+    transform-style: preserve-3d;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* Visibility Control Classes */
+.hide-screen, .welcome-screen.hidden {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+.show-screen, .container.active-main {
+    display: block !important;
+    visibility: visible !important;
+    z-index: 1;
+    animation: floatIn3D 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes floatIn3D {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.96) rotateX(-5deg);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1) rotateX(0deg);
+    }
+}
+
+/* Typography 3D Enhancements */
+h1 {
+    margin-bottom: 15px;
+    color: #ffffff;
+    font-weight: 700;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+p {
+    color: #94a3b8;
+    font-size: 15px;
+}
+
+/* 3D Interactive Buttons Setup */
+button {
+    font-family: inherit;
+    font-weight: 600;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    outline: none;
+    position: relative;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Primary Action Buttons (3D Push Effect) */
+#welcomeStartBtn, #startBtn, #restartBtn, #backToResultBtn, #nextBtn {
+    background: linear-gradient(180deg, #3b82f6 0%, #1d4ed8 100%);
+    color: #ffffff;
+    padding: 14px 28px;
+    font-size: 16px;
+    box-shadow: 
+        0 6px 0 #1e40af,
+        0 12px 20px rgba(37, 99, 235, 0.35);
+}
+
+#welcomeStartBtn:hover, #startBtn:hover:not(:disabled), #restartBtn:hover, #backToResultBtn:hover, #nextBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        0 8px 0 #1e40af,
+        0 16px 25px rgba(37, 99, 235, 0.45);
+}
+
+#welcomeStartBtn:active, #startBtn:active:not(:disabled), #restartBtn:active, #backToResultBtn:active, #nextBtn:active {
+    transform: translateY(4px);
+    box-shadow: 
+        0 2px 0 #1e40af,
+        0 4px 10px rgba(37, 99, 235, 0.2);
+}
+
+#prevBtn {
+    background: linear-gradient(180deg, #64748b 0%, #475569 100%);
+    color: white;
+    box-shadow: 0 6px 0 #334155, 0 10px 15px rgba(0,0,0,0.3);
+}
+
+#prevBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 0 #334155, 0 14px 20px rgba(0,0,0,0.4);
+}
+
+#prevBtn:active {
+    transform: translateY(4px);
+    box-shadow: 0 2px 0 #334155;
+}
+
+button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    box-shadow: none !important;
+    transform: none !important;
+}
+
+/* Welcome Screen 3D Styling */
+.welcome-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: transparent;
+    z-index: 9999;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Stylish 3D Animated Welcome Screen */
+.welcome-screen h1 {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 800;
+    letter-spacing: -1px;
+    background: linear-gradient(135deg, #ffffff 10%, #60a5fa 50%, #a855f7 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 10px 30px rgba(168, 85, 247, 0.3);
+    margin-bottom: 12px;
+    animation: glowPulse 3s ease-in-out infinite alternate;
+}
+
+.welcome-screen p {
+    color: #cbd5e1;
+    font-size: 1.25rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    margin-bottom: 30px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+    background: rgba(255, 255, 255, 0.05);
+    padding: 8px 18px;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    display: inline-block;
+}
+
+/* Text Ambient Glow Animation */
+@keyframes glowPulse {
+    0% {
+        filter: drop-shadow(0 0 15px rgba(96, 165, 250, 0.4));
+    }
+    100% {
+        filter: drop-shadow(0 0 25px rgba(168, 85, 247, 0.7));
+    }
+}
+
+.welcome-input-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    max-width: 320px;
+}
+
+/* 3D Input Fields */
+#welcomeName, #participantName {
+    width: 100%;
+    padding: 15px 18px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(10, 15, 26, 0.6);
+    color: #ffffff;
+    font-size: 16px;
+    text-align: center;
+    outline: none;
+    box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#participantName {
+    text-align: left;
+}
+
+#welcomeName::placeholder { color: #64748b; }
+
+#welcomeName:focus, #participantName:focus {
+    border-color: #3b82f6;
+    box-shadow: 
+        inset 0 2px 4px rgba(0, 0, 0, 0.4),
+        0 0 20px rgba(59, 130, 246, 0.4);
+    transform: translateY(-2px);
+}
+
+/* Category Grid Buttons (3D Tiles) */
+.category-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin: 25px 0;
+}
+
+.category-btn {
+    width: 100%;
+    background: rgba(30, 41, 59, 0.7);
+    color: #e2e8f0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    padding: 14px;
+    font-weight: 600;
+    box-shadow: 0 5px 0 #0f172a, 0 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+.category-btn:hover {
+    background: rgba(51, 65, 85, 0.9);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 0 #0f172a, 0 12px 20px rgba(0, 0, 0, 0.4);
+}
+
+.category-btn.selected {
+    background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%);
+    color: white;
+    border-color: #60a5fa;
+    transform: translateY(3px);
+    box-shadow: 0 2px 0 #1e40af, 0 4px 10px rgba(37, 99, 235, 0.3);
+}
+
+/* 3D Option Cards */
+#options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.option {
+    width: 100%;
+    background: rgba(30, 41, 59, 0.5);
+    color: #f1f5f9;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 16px 20px;
+    text-align: left;
+    font-size: 15px;
+    font-weight: 500;
+    box-shadow: 0 4px 0 #0f172a, 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.option:hover {
+    background: rgba(51, 65, 85, 0.7);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #0f172a, 0 10px 18px rgba(0, 0, 0, 0.3);
+}
+
+.option.selected {
+    background: rgba(37, 99, 235, 0.25);
+    border-color: #3b82f6;
+    color: #60a5fa;
+    box-shadow: inset 0 0 12px rgba(59, 130, 246, 0.3), 0 2px 0 #1d4ed8;
+    transform: translateY(2px);
+}
+
+.option.correct {
+    background: rgba(22, 101, 52, 0.4) !important;
+    color: #4ade80 !important;
+    border-color: #22c55e !important;
+    box-shadow: 0 2px 0 #15803d !important;
+}
+
+.option.wrong {
+    background: rgba(153, 27, 27, 0.4) !important;
+    color: #fca5a5 !important;
+    border-color: #ef4444 !important;
+    box-shadow: 0 2px 0 #991b1b !important;
+}
+
+/* Progress Bar & Badges */
+.progress-container {
+    width: 100%;
+    height: 10px;
+    background: rgba(15, 23, 42, 0.6);
+    border-radius: 10px;
+    margin: 15px 0 25px 0;
+    overflow: hidden;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+}
+
+#progressBar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #2563eb, #60a5fa);
+    border-radius: 10px;
+    box-shadow: 0 0 12px rgba(59, 130, 246, 0.8);
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.question-number {
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    background: rgba(30, 41, 59, 0.8);
+    color: #cbd5e1;
+    font-weight: 600;
+    box-shadow: 0 4px 0 #0f172a;
+}
+
+.question-number:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #0f172a;
+}
+
+.question-number.current {
+    border-color: #3b82f6;
+    color: #ffffff;
+    background: #3b82f6;
+    box-shadow: 0 2px 0 #1d4ed8;
+    transform: translateY(2px);
+}
+
+.question-number.answered {
+    background: #10b981;
+    border-color: #10b981;
+    color: #ffffff;
+    box-shadow: 0 2px 0 #047857;
+}
+
+/* 3D Depth Boxes for Results & Leaderboard */
+.result-box, .quiz-instructions, .attempt-summary, .leaderboard-item {
+    margin: 25px 0;
+    padding: 22px;
+    background: rgba(10, 15, 26, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+    text-align: left;
+    box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.4);
+}
+
+.quiz-header, #question, #categoryTitle, #resultCategory, #performanceMessage, .attempt-summary h3, .quiz-instructions h3 {
+    color: #f8fafc;
+}
+
+/* Red 3D Clear Leaderboard Button */
+#clearLeaderboardBtn {
+    display: inline-block !important;
+    width: auto !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 14px 28px !important;
+    font-size: 16px !important;
+    background: linear-gradient(180deg, #ef4444 0%, #dc2626 100%) !important;
+    color: #ffffff !important;
+    box-shadow: 
+        0 6px 0 #991b1b,
+        0 12px 20px rgba(239, 68, 68, 0.35) !important;
+}
+
+#clearLeaderboardBtn:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 
+        0 8px 0 #991b1b,
+        0 16px 25px rgba(239, 68, 68, 0.45) !important;
+}
+
+#clearLeaderboardBtn:active {
+    transform: translateY(4px) !important;
+    box-shadow: 0 2px 0 #991b1b !important;
+}
+
+.navigation-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 25px;
+    width: 100%;
+}
+
+.navigation-buttons button {
+    flex: 1;
+    height: 48px;
+}
+
+/* White 3D Leaderboard Button */
+#leaderboardBtn {
+    background: linear-gradient(180deg, #ffffff 0%, #e2e8f0 100%) !important;
+    color: #0f172a !important;
+    padding: 14px 28px !important;
+    font-size: 16px !important;
+    width: auto !important;
+    max-width: none !important;
+    box-shadow: 
+        0 6px 0 #cbd5e1,
+        0 12px 20px rgba(255, 255, 255, 0.15) !important;
+}
+
+#leaderboardBtn:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 
+        0 8px 0 #cbd5e1,
+        0 16px 25px rgba(255, 255, 255, 0.25) !important;
+}
+
+#leaderboardBtn:active {
+    transform: translateY(4px) !important;
+    box-shadow: 0 2px 0 #cbd5e1 !important;
+}
+
+/* Flex alignment for bottom action buttons */
+.result-buttons, .leaderboard-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+    width: 100%;
+}
